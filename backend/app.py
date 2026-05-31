@@ -6,6 +6,8 @@ from PIL import Image
 import tensorflow as tf
 import cv2
 from datetime import datetime
+import gdown
+import os
 
 # PDF
 from reportlab.platypus import (
@@ -41,9 +43,27 @@ os.makedirs(REPORT_FOLDER, exist_ok=True)
 # =====================================================
 # LOAD MODEL
 # =====================================================
+MODEL_PATH = "brain_tumor_model.keras"
 
-model = tf.keras.models.load_model(
-    "../model/brain_tumor_model.keras"
+def download_model():
+
+    if not os.path.exists(MODEL_PATH):
+
+        print("Downloading model...")
+
+        url = "https://drive.google.com/uc?id=1-98jTf3tvhzNB1l07twXS1HH0A2rULI9"
+
+        gdown.download(
+            url,
+            MODEL_PATH,
+            quiet=False
+        )
+
+download_model()
+
+
+model = load_model(
+    MODEL_PATH
 )
 
 # =====================================================
