@@ -51,20 +51,20 @@ def download_model():
 
         print("Downloading model...")
 
-        url = "https://drive.google.com/uc?id=1-98jTf3tvhzNB1l07twXS1HH0A2rULI9"
+        FILE_ID = "1-98jTf3tvhzNB1l07twXS1HH0A2rULI9"
 
         gdown.download(
-            url,
-            MODEL_PATH,
-            quiet=False
+            id=FILE_ID,
+            output=MODEL_PATH,
+            quiet=False,
+            fuzzy=True
         )
+
+        print("Model Downloaded Successfully!")
 
 download_model()
 
-
-model = load_model(
-    MODEL_PATH
-)
+model = load_model(MODEL_PATH)
 
 # =====================================================
 # CLASSES
