@@ -647,16 +647,12 @@ def generate_pdf(
 
     )
 
-    mri_img = PDFImage(image_path)
+    img = PDFImage(image_path)
 
-    mri_img.width = 250
-    mri_img.height = 250
+    img.drawWidth = 150
+    img.drawHeight = 150
 
-    elements.append(mri_img)
-
-    elements.append(
-        Spacer(1, 15)
-    )
+    elements.append(img)
 
     # =====================================
     # HEATMAP IMAGE
@@ -674,16 +670,12 @@ def generate_pdf(
 
     )
 
-    heat_img = PDFImage(
-        heatmap_path
-    )
+    heatmap_img = PDFImage(heatmap_path)
 
-    heat_img.width = 250
-    heat_img.height = 250
+    heatmap_img.drawWidth = 150
+    heatmap_img.drawHeight = 150
 
-    elements.append(
-        heat_img
-    )
+    elements.append(heatmap_img)
 
     elements.append(
         Spacer(1, 15)
@@ -912,13 +904,13 @@ def contact():
 @app.route("/download/<filename>")
 def download_file(filename):
 
-    path = os.path.join(
-        REPORT_FOLDER,
-        filename
-    )
+    path = os.path.join(REPORT_FOLDER, filename)
 
     print("PDF PATH =", path)
     print("FILE EXISTS =", os.path.exists(path))
+
+    if not os.path.exists(path):
+        return f"PDF not found: {path}"
 
     return send_file(
         path,
